@@ -3,11 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import {Provider} from 'react-redux';
+import { configureStore } from './store/configureStore'
+import { todos} from './store/sagas';
+import sagaMiddleware from './store/middlewares/saga';
+// import reducer from './redux/todoReducer'
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const initialState = {};
+const store = configureStore(initialState);
+sagaMiddleware.run(todos);
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
